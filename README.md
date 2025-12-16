@@ -10,6 +10,11 @@ ya pkg add qwjyh/relative-path
 
 ## Usage
 
+Add following to `init.lua`:
+```lua
+require("relative-path").setup {}
+```
+
 Modify `keymap.toml` to run `plugin relative-path`.
 For example:
 
@@ -23,3 +28,8 @@ append_keymap = [
 ]
 ```
 
+### Options
+
+Following options are available in `setup` function.
+
+- `notify`(bool): Notify the copied path.

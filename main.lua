@@ -57,7 +57,7 @@ local function make_relative_path(parent_level, diff_from_ancestor)
         for _ = 2, parent_level do
             diff_path = Url("../"):join(diff_path)
         end
-        diff_path = diff_path:join(diff_from_ancestor)
+        diff_path = diff_path:join(tostring(diff_from_ancestor))
         return diff_path
     end
 end
@@ -65,9 +65,9 @@ end
 M.entry = function()
     ---@type Url[]?
     local target_paths = target_path_blk()
-    ya.dbg { msg = "did i reached here", target_path = target_paths }
     ---@type Url
     local init_path = init_path_blk()
+    ya.dbg { msg = "entry function called", target_path = target_paths, init_path = init_path }
     if not target_paths then
         ya.notify {
             title = "relative-path",
@@ -87,6 +87,7 @@ M.entry = function()
         else
             while init_path ~= nil do
                 local diff = target_path:strip_prefix(init_path)
+                ya.dbg { msg = "calculating diff", init_path = tostring(init_path), diff = tostring(diff) }
                 if diff then
                     diff_path = make_relative_path(parent_level, diff)
                     break
